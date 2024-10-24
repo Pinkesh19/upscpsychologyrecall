@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Psychology Recall Test</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="test-setup" id="testSetup">
+      <h1 class="head">UPSC Psychology Recall Test</h1>
+      <hr>
+      <div id="mainForm">
+        <div class="box">
+          <label for="nameInput">Enter your Name:</label>
+          <input type="text" id="nameInput" placeholder="Your name" />
+        </div>
+
+        <div class="box">
+          <label>Select Test Mode:</label>
+          <div class="boxlable">
+            <label class="testModeLabel">
+              <input
+                type="radio"
+                name="testMode"
+                value="chapters"
+                checked
+                onclick="toggleTestMode()"
+              />
+              Chapters
+            </label>           
+            <label  class="testModeLabel">
+              <input
+                type="radio"
+                name="testMode"
+                value="pyqs"
+                onclick="toggleTestMode()"
+              />
+              PYQs
+            </label>
+            <label  class="testModeLabel">
+              <input
+                type="radio"
+                name="testMode"
+                value="custom"
+                onclick="toggleTestMode()"
+              />
+              Custom
+            </label>
+          </div>
+        </div>
+
+        <!-- Select Chapters Section -->
+        <div class="box" id="chapterSection">
+          <label for="chapterSelect">Select Chapters to Test:</label>
+          <select id="chapterSelect">
+            <optgroup label="Paper I">
+              <option value="Introduction">Introduction</option>
+              <option value="Methods of Psychology">
+                Methods of Psychology
+              </option>
+              <option value="Biological Basis of Behavior">
+                Biological Basis of Behavior
+              </option>
+              <option value="Development of Human Behavior">
+                Development of Human Behavior
+              </option>
+              <option value="Sensation, Attention, and Perception">
+                Sensation, Attention, and Perception
+              </option>
+              <option value="Learning">Learning</option>
+              <option value="Memory">Memory</option>
+              <option value="Thinking and Problem Solving">
+                Thinking and Problem Solving
+              </option>
+              <option value="Motivation and Emotion">
+                Motivation and Emotion
+              </option>
+              <option value="Intelligence and Aptitude">
+                Intelligence and Aptitude
+              </option>
+              <option value="Personality">Personality</option>
+              <option value="Attitudes, Values, and Interests">
+                Attitudes, Values, and Interests
+              </option>
+              <option value="Language and Communication">
+                Language and Communication
+              </option>
+              <option
+                value="Issues and Perspectives in Modern Contemporary Psychology"
+              >
+                Issues and Perspectives in Modern Contemporary Psychology
+              </option>
+            </optgroup>
+            <optgroup label="Paper II">
+              <option
+                value="Psychological Measurement of Individual Differences"
+              >
+                Psychological Measurement of Individual Differences
+              </option>
+              <option value="Theories of Personality">
+                Theories of Personality
+              </option>
+              <option value="Therapeutic Approaches">
+                Therapeutic Approaches
+              </option>
+              <option value="Work Psychology and Organizational Behavior">
+                Work Psychology and Organizational Behavior
+              </option>
+              <option value="Application of Psychology to Educational Field">
+                Application of Psychology to Educational Field
+              </option>
+              <option value="Community Psychology">Community Psychology</option>
+              <option value="Rehabilitation Psychology">
+                Rehabilitation Psychology
+              </option>
+              <option value="Application of Psychology to Disadvantaged Groups">
+                Application of Psychology to Disadvantaged Groups
+              </option>
+              <option value="Psychological Problems of Social Integration">
+                Psychological Problems of Social Integration
+              </option>
+              <option
+                value="Application of Psychology in Information Technology and Mass Media"
+              >
+                Application of Psychology in Information Technology and Mass
+                Media
+              </option>
+              <option value="Psychology and Economic Development">
+                Psychology and Economic Development
+              </option>
+              <option
+                value="Application of Psychology to Environment and Related Fields"
+              >
+                Application of Psychology to Environment and Related Fields
+              </option>
+              <option value="Application of Psychology in Other Fields">
+                Application of Psychology in Other Fields
+              </option>
+              <option value="Psychological Well-being and Mental Disorders">
+                Psychological Well-being and Mental Disorders
+              </option>
+            </optgroup>
+          </select>
+        </div>
+        <!-- Custom Words Input Section -->
+        <div class="box hidden" id="customSection">
+          <label for="customWordsInput"
+            >Enter Custom Words (comma-separated):</label
+          >
+          <div class="scroll-container">
+              <textarea
+                id="customWordsInput"
+                rows="5"
+                placeholder="Enter words in comma-separated or inverted comma-separated."
+                class="custom-textarea"
+              ></textarea>
+          </div>
+          
+          
+         
+        </div>
+        <!-- PYQs Section -->
+        <div class="box hidden" id="pyqSection">
+
+          <div class="pyqSectionDiv">
+            <label for="pyqYearSelect">Select Year for PYQs:</label>
+          <select id="pyqYearSelect" onchange="loadPYQs()">
+            <option value="">--Select Year--</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+          </select>
+          </div>
+          
+
+          <div class="pyqSectionDiv">
+            <label for="paperSelect">Select Paper:</label>
+            <select id="paperSelect" onchange="loadPYQs()">
+              <option value="">--Select Paper--</option>
+              <option value="Paper I">Paper I</option>
+              <option value="Paper II">Paper II</option>
+            </select>
+          </div>
+
+         
+        </div>
+
+        <div class="box">
+          <label for="wordLimit">Enter number of words to test:</label>
+          <input
+            type="number"
+            id="wordLimit"
+            min="1"
+            placeholder="Enter number"
+            class="numberBox"
+          />
+        </div>
+
+        <div class="box">
+          <label for="testDuration">Set Test Duration (Hours:Minutes):</label>
+          <div class="time setTimeDuration">
+            <input
+              type="number"
+              id="testHours"
+              min="0"
+              max="23"
+              placeholder="Hours"
+              value="0"
+            />
+            :
+            <input
+              type="number"
+              id="testMinutes"
+              min="1"
+              max="59"
+              placeholder="Minutes"
+              value="10"
+            />
+          </div>
+        </div>
+
+        <div class="box">
+          <label for="wordTimeToggle">Hide Word Time:</label>
+          <input type="checkbox" id="wordTimeToggle" class="hideCheckBox" onchange="toggleWordTime()">
+        </div>
+        
+        <div class="box">
+          <label for="testDurationToggle">Hide Test Duration:</label>
+          <input type="checkbox" id="testDurationToggle" class="hideCheckBox" onchange="toggleTestDuration()">
+        </div>
+        
+      </div>
+
+      <div class="startTestBTN">
+        <button id="startTest" onclick="startTest()">Start Test</button>
+      </div>
+    </div>
+
+    <div id="testArea" class="hidden">
+      <h2 id="currentWord">Word</h2>
+      <div id="testCountdown" class="timer">Time Left: 01:00:00</div>
+      <div class="answerArea">
+        <textarea
+          id="answerInput"
+          rows="5"
+          placeholder="Type your answer..."
+          contenteditable="true"
+        ></textarea>
+        <div id="wordTimer" class="timer">Word Time: 00:00</div>
+      </div>
+      <button id="nextButton" class="centerBTN">Next</button>
+      <button id="submitTest" class="hidden centerBTN">Submit Test</button>
+    </div>
+
+    <div id="testResult" class="hidden">
+      <h2>Test Results</h2>
+      <div class="userID">
+        <div class="testResultName">
+          <div>Name:</div>
+          <div> <span id="userName"></span></div>       
+        </div>
+      
+      </div>
+      <div class="testResultTimeShot">
+        <div class="testResultTimeShotDiv">
+          <div>Date & Time:</div>
+          <div><span id="testDateTime"></span></div>
+        </div>
+        <div class="testResultTimeShotDiv">
+          <div>Test Duration:</div>
+          <div><span id="testDuration"></span></div>
+        </div>
+      </div>
+      <ul id="resultList"></ul>
+      <button id="printBtn" class="centerBTN">Print/Download</button>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
